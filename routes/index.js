@@ -1,31 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../db');
+const productRouter = require('./product');
 
-async function getAllProducts() {
-  try {
-    const statement = `SELECT * FROM products`;
-    const values = [];
+// 1. Create individual routes files for Customers/Products/Orders
+// 2. Extract existing get request and house in necessary folder
+// 3. Create corresponding model/service folder to house sql query function (i.e. getAll Products)
 
-    const result = await db.query(statement, values);
-
-    if (result.rows?.length) {
-      return result.rows;
-    }
-    return [];
-  } catch (err) {
-    throw err;
-  }
-}
-
-// Get home page
-router.get('/', async (req, res, next) => {
-  try {
-    const response = await getAllProducts();
-    res.status(200).send(response);
-  } catch (err) {
-    next(err);
-  }
-});
-
-module.exports = router;
+module.exports = async (app) => {
+  productRouter(app);
+};
