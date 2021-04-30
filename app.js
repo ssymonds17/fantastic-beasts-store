@@ -1,36 +1,32 @@
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
 const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { PORT } = require('./config');
+const indexRouter = require('./routes/index');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+async function startServer() {
+  // Enable CORS to all origins by default
+  app.use(cors());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+  // Parse JSON from requests
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-// catch 404 and forward to error handler
-app.get('*', function(req, res) {
-  res.status(404).send('Error 404: Not Found');
-});
+  // Access route handlers
+  app.use('/', indexRouter);
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // Error handler
+  app.use((err, req, res, next) => {
+    const { message, status } = err;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+    return res.status(status).send({ message });
+  });
 
-module.exports = app;
+  // Start server
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
+
+startServer();
