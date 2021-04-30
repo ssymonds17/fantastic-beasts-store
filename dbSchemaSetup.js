@@ -17,7 +17,7 @@
 `CREATE TABLE products (
   id INT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
-  description: TEXT NOT NULL,
+  description TEXT NOT NULL,
   price BIGINT NOT NULL,
   image VARCHAR(200) NOT NULL
 );` // Order Items Join Table
