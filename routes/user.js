@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.use('/users', router);
 
   // Get user by id
-  router.get('/:userId', function(req, res, next) {
+  router.get('/:userId', async (req, res, next) => {
     try {
       const { userId } = req.params;
       res.send(`user with id: ${userId}`);
