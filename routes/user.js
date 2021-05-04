@@ -23,4 +23,14 @@ module.exports = (app) => {
       next(err);
     }
   });
+
+  // DELETE user record by id
+  router.delete('/:userId', async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      res.send(`User deleted with id: ${userId}`);
+    } catch (err) {
+      next(err);
+    }
+  });
 };
