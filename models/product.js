@@ -19,8 +19,7 @@ module.exports = class ProductModel {
 
   async findOne(id) {
     try {
-      const statement = `SELECT *
-                       FROM products
+      const statement = `SELECT * FROM products
                        WHERE id = $1`;
       const values = [id];
 
