@@ -20,4 +20,22 @@ module.exports = class UserModel {
       throw new Error(err);
     }
   }
+
+  async findOneByEmail(email) {
+    try {
+      const statement = `SELECT * FROM customers WHERE email = $1`;
+      const values = [email];
+
+      // Execute query
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+
+      return null;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 };
