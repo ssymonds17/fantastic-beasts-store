@@ -1,13 +1,15 @@
 const db = require('../db');
 const moment = require('moment');
 moment().format();
+const uuid = require('uuid');
 
 module.exports = class UserModel {
   // Create a new user record
   async create(data) {
     try {
-      const { id, first_name, last_name, email, password } = data;
+      const { first_name, last_name, email, password } = data;
       const created = moment.utc().toISOString();
+      const id = uuid.v4();
       const statement = `INSERT INTO customers VALUES ($1, $2, $3, $4, $5, $6)`;
       const values = [id, first_name, last_name, email, password, created];
 
