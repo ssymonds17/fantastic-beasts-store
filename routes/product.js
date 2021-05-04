@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const createError = require('http-errors');
-const ProductModel = require('../models/product');
-const ProductModelInstance = new ProductModel();
+const ProductService = require('../services/productService');
+const ProductServiceInstance = new ProductService();
 
 module.exports = (app) => {
   app.use('/products', router);
@@ -10,7 +9,7 @@ module.exports = (app) => {
   // Get all products
   router.get('/', async (req, res, next) => {
     try {
-      const response = await ProductModelInstance.findAll();
+      const response = await ProductServiceInstance.getAll();
       res.status(200).send(response);
     } catch (err) {
       next(err);
@@ -21,13 +20,7 @@ module.exports = (app) => {
   router.get('/:productId', async (req, res, next) => {
     try {
       const { productId } = req.params;
-
-      const response = await ProductModelInstance.findOne(productId);
-
-      // If no product found then reject
-      if (!response) {
-        throw createError(404, 'Product not found');
-      }
+      const response = await ProductServiceInstance.getOne(productId);
 
       res.status(200).send(response);
     } catch (err) {
