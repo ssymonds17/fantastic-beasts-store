@@ -21,4 +21,26 @@ module.exports = class AuthService {
       throw createError(500, err);
     }
   }
+
+  async login(data) {
+    const { email, password } = data;
+
+    try {
+      const user = await UserModelInstance.findOneByEmail(email);
+
+      // If no user found then reject
+      if (!user) {
+        throw createError(401, 'Incorrect username or password');
+      }
+
+      // If user exists then check passwords match
+      if (user.password !== password) {
+        throw createError(401, 'Incorrect username or password');
+      }
+
+      return user;
+    } catch (err) {
+      throw createError(500, err);
+    }
+  }
 };
