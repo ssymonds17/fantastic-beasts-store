@@ -22,9 +22,18 @@ module.exports = class UserService {
     }
   }
 
-  async update(data) {
+  async updateOne(data) {
     try {
       const user = await UserModelInstance.update(data);
+      return user;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async deleteOne(userId) {
+    try {
+      const user = await UserModelInstance.delete(userId);
       return user;
     } catch (err) {
       throw err;

@@ -41,7 +41,7 @@ module.exports = (app) => {
       const { userId } = req.params;
       const data = req.body;
 
-      const response = UserServiceInstance.update({ id: userId, ...data });
+      const response = UserServiceInstance.updateOne({ id: userId, ...data });
       res.status(200).send(response);
     } catch (err) {
       next(err);
@@ -52,7 +52,8 @@ module.exports = (app) => {
   router.delete('/:userId', async (req, res, next) => {
     try {
       const { userId } = req.params;
-      res.send(`User deleted with id: ${userId}`);
+      const response = UserServiceInstance.deleteOne(userId);
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }

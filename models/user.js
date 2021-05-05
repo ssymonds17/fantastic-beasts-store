@@ -81,4 +81,24 @@ module.exports = class UserModel {
       throw new Error(err);
     }
   }
+
+  // Delete user record by id
+  async delete(userId) {
+    try {
+      // Generate SQL statement
+      const statement = `DELETE FROM customers WHERE id = $1 RETURNING *`;
+      const values = [userId];
+
+      // Execute SQL statment
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+
+      return null;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 };
