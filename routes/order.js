@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const OrderService = require('../services/orderService');
+const OrderServiceInstance = new OrderService();
 
 module.exports = (app) => {
   app.use('/orders', router);
@@ -7,7 +9,8 @@ module.exports = (app) => {
   // GET all orders
   router.get('/', async (req, res, next) => {
     try {
-      res.send('All orders returned');
+      const response = await OrderServiceInstance.getAll();
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }
