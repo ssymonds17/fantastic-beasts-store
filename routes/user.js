@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
-const ModelUser = require('../models/user');
-const ModelUserInstance = new ModelUser();
+const UserService = require('../services/userService');
+const UserServiceInstance = new UserService();
 
 module.exports = (app) => {
   app.use('/users', router);
@@ -11,7 +11,8 @@ module.exports = (app) => {
   router.get('/:userId', async (req, res, next) => {
     try {
       const { userId } = req.params;
-      res.send(`user with id: ${userId}`);
+      const response = await UserServiceInstance.getOne({ id: userId });
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }
