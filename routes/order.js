@@ -42,7 +42,9 @@ module.exports = (app) => {
   // POST create new order
   router.post('/', async (req, res, next) => {
     try {
-      res.send('New order created');
+      const data = req.body;
+      const response = await OrderServiceInstance.createOne(data);
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }

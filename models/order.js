@@ -1,4 +1,6 @@
 const db = require('../db');
+const moment = require('moment');
+moment().format();
 
 module.exports = class OrderModel {
   async findAll() {
@@ -44,12 +46,51 @@ module.exports = class OrderModel {
       const result = await db.query(statement, values);
 
       if (result.rows?.length) {
-        return result.rows[0];
+        return result.rows;
       }
 
       return null;
     } catch (err) {
       throw err;
+    }
+  }
+
+  async create(data, count) {
+    try {
+      const { customer_id, total } = data;
+      const order_date = moment.utc().toISOString();
+      // Use the existing number of order records to generate a new order number for this new one
+      const order_number = count;
+
+      const statement = `INSERT INTO orders VALUES ($1, $2, $3, $4)`;
+      const values = [order_number, order_date, total, customer_id];
+
+      // Execute query
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+      return null;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async findNumberOfOrders() {
+    try {
+      const statement = `SELECT COUNT(*) FROM orders`;
+      const values = [];
+
+      // Execute query
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows;
+      }
+      return null;
+    } catch (err) {
+      throw new Error(err);
     }
   }
 };

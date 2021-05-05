@@ -35,10 +35,41 @@ module.exports = class OrderService {
 
       // If no order exists then reject
       if (!order) {
-        throw createError(404, 'Order not found');
+        throw createError(404, 'No orders found');
       }
 
       return order;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async createOne(data) {
+    try {
+      // Check to see how many orders currently exist so we can automatically generate an new order_number (total records plus one)
+      const count = await this.getOrderTotal();
+
+      // Check to see if the order already exists
+      const order = await OrderModelInstance.findOneById(count);
+
+      // If user already exists then reject
+      if (order) {
+        createError(409, 'Order already exists');
+      }
+
+      // If user doesn't already exist then create new order record
+      return await OrderModelInstance.create(data, count);
+    } catch (err) {
+      throw createError(500, err);
+    }
+  }
+
+  async getOrderTotal() {
+    try {
+      const orderCount = await OrderModelInstance.findNumberOfOrders();
+
+      const { count } = orderCount[0];
+      return Number(count) + 1;
     } catch (err) {
       throw err;
     }
