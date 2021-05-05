@@ -20,7 +20,9 @@ module.exports = (app) => {
   router.get('/:orderId', async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      res.send(`Order with id: ${orderId}`);
+
+      const response = await OrderServiceInstance.getOneById(orderId);
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }
@@ -30,7 +32,8 @@ module.exports = (app) => {
   router.get('/user/:userId', async (req, res, next) => {
     try {
       const { userId } = req.params;
-      res.send(`Orders from user with id: ${userId}`);
+      const response = await OrderServiceInstance.getOneByUser(userId);
+      res.status(200).send(response);
     } catch (err) {
       next(err);
     }

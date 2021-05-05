@@ -13,4 +13,34 @@ module.exports = class OrderService {
       throw err;
     }
   }
+
+  async getOneById(id) {
+    try {
+      const order = await OrderModelInstance.findOneById(id);
+
+      // If no order exists then reject
+      if (!order) {
+        throw createError(404, 'Order not found');
+      }
+
+      return order;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getOneByUser(id) {
+    try {
+      const order = await OrderModelInstance.findOneByUser(id);
+
+      // If no order exists then reject
+      if (!order) {
+        throw createError(404, 'Order not found');
+      }
+
+      return order;
+    } catch (err) {
+      throw err;
+    }
+  }
 };
