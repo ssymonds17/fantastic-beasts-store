@@ -2,6 +2,7 @@ const db = require('../db');
 const moment = require('moment');
 moment().format();
 const uuid = require('uuid');
+const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class UserModel {
   // Create a new user record
@@ -56,6 +57,25 @@ module.exports = class UserModel {
       if (result.rows?.length) {
         return result.rows[0];
       }
+      return null;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  // Update a user record
+  async update(data) {
+    try {
+      const { id, ...params } = data;
+      const condition = pgp.as.format('WHERE id = ${id} RETURNING *', { id });
+      const statement =
+        pgp.helpers.update(params, null, 'customers') + condition;
+
+      const result = await db.query(statement);
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+
       return null;
     } catch (err) {
       throw new Error(err);
