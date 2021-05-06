@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   // Express-session
   app.set('trust proxy', 1); // Trust first proxy
+
   // Create a session
   app.use(
     session({

@@ -1,13 +1,21 @@
 const { Pool } = require('pg');
 const { DB } = require('../config');
 
-const pool = new Pool({
+const devConfig = {
   user: DB.PGUSER,
   host: DB.PGHOST,
   database: DB.PGDATABASE,
   password: DB.PGPASSWORD,
   port: DB.PGPORT
-});
+};
+
+const proConfig = {
+  connectionString: process.env.DATABASE_URL // Heroku address
+};
+
+const pool = new Pool(
+  process.env.NODE_ENV === 'production' ? proConfig : devConfig
+);
 
 module.exports = {
   query: (text, params) => pool.query(text, params)
