@@ -10,13 +10,9 @@ const devConfig = {
 };
 
 const proConfig = {
-  connectionString: process.env.DATABASE_URL, // Heroku address
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
   }
 };
 
