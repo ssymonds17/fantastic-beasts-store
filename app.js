@@ -7,10 +7,6 @@ async function startServer() {
   // Initialise application loaders
   loaders(app);
 
-  app.get('*', (req, res) => {
-    res.send('404 Resource does not exist');
-  });
-
   // Start server
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

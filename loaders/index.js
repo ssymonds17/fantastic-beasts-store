@@ -16,6 +16,10 @@ module.exports = async (app) => {
   // Load Swagger documentation
   await swaggerLoader(app);
 
+  app.get('*', (req, res) => {
+    res.send('404 Resource does not exist');
+  });
+
   // Error handler
   app.use((err, req, res, next) => {
     const { message, status } = err;
