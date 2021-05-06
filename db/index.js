@@ -10,7 +10,8 @@ const devConfig = {
 };
 
 const proConfig = {
-  connectionString: process.env.DATABASE_URL // Heroku address
+  connectionString: process.env.DATABASE_URL, // Heroku address
+  ssl: true
 };
 
 const pool = new Pool(
