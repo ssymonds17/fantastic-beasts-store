@@ -4,7 +4,7 @@ const ProductService = require('../services/productService');
 const ProductServiceInstance = new ProductService();
 
 module.exports = (app) => {
-  app.use('/products', router);
+  app.use('/api/v1/products', router);
 
   // Get all products
   router.get('/', async (req, res, next) => {
