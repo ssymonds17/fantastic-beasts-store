@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className='navbar navbar-expand-sm bg-primary navbar-dark px-sm-5'>
+    <nav className='navbar navbar-expand-sm navbar-dark px-sm-5 nav-wrapper'>
       <Link to='/'>
         <img
           // TODO Change logo to relevant SVG
@@ -22,7 +22,7 @@ export default function Navbar() {
         </li>
       </ul>
       <Link to='/cart' className='ml-auto'>
-        <button>
+        <button className='button-container'>
           <i className='fas fa-cart-plus' />
           my cart
         </button>
