@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { fetchProducts } from '../apis/product';
+import { useGlobalContext } from '../context';
 import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const [products, setProducts] = useState('');
+  const { products, setProducts } = useGlobalContext();
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
