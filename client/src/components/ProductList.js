@@ -5,7 +5,7 @@ import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, setProducts } = useGlobalContext();
+  const { products, setProducts, handleDetail } = useGlobalContext();
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
@@ -13,21 +13,34 @@ export default function ProductList() {
   };
 
   useEffect(() => {
-    loadProducts();
-  }, []);
+    if (!products) {
+      loadProducts();
+    }
+    console.log(products);
+  }, [products]);
 
-  return (
-    <React.Fragment>
-      <div className='py-5'>
-        <div className='container'>
-          <Title title='our products' />
-          <div className='row'>
-            <button onClick={() => console.log(products)}>
-              Check Products
-            </button>
+  if (!products) {
+    return <h1>Loading...</h1>;
+  } else {
+    return (
+      <React.Fragment>
+        <div className='py-5'>
+          <div className='container'>
+            <Title title='our products' />
+            <div className='row'>
+              {products.map((product) => {
+                return (
+                  <Product
+                    key={product.id}
+                    product={product}
+                    handleDetail={handleDetail}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  }
 }
