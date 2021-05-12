@@ -3,16 +3,9 @@ import React, { useState, useContext } from 'react';
 const ProductContext = React.createContext();
 
 const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState('');
-  const [detailProduct, setDetailProduct] = useState({
-    id: 1,
-    name: 'Basilisk',
-    description:
-      'Reptile reputed to be a serpent king. Can cause death with a single glance.',
-    price: 650,
-    image: 'basilisk.png',
-    inCart: false
-  });
+  const [products, setProducts] = useState(null);
+  const [detailProduct, setDetailProduct] = useState(null);
+  const [cart, setCart] = useState([]);
 
   // Functions
   const getItem = (id) => {
@@ -24,7 +17,19 @@ const ProductProvider = ({ children }) => {
     setDetailProduct(product);
   };
   const addToCart = (id) => {
-    console.log(`Product with id of ${id} added to cart`);
+    let tempProducts = [...products];
+    const index = tempProducts.indexOf(getItem(id));
+    const product = tempProducts[index];
+    product.inCart = true;
+    product.count = 1;
+    const price = product.price;
+    product.total = price;
+    let newCart = [...cart];
+    newCart.push(product);
+
+    setProducts(tempProducts);
+    setCart(newCart);
+    console.log(products, cart);
   };
   return (
     <ProductContext.Provider
