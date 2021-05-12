@@ -10,8 +10,10 @@ export default function ProductList() {
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
     newProducts.forEach((item) => {
-      item.inCart = false;
       item.price = parseInt(item.price);
+      item.inCart = false;
+      item.count = 0;
+      item.total = 0;
     });
     setProducts(newProducts);
   };
