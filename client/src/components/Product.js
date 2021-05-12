@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './styles/product-wrapper.css';
 
 export default function Product({ product }) {
   const { id, name, description, price, image, inCart } = product;
