@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/button-container.css';
 
 export default function Details() {
-  const { detailProduct, addToCart } = useGlobalContext();
+  const { detailProduct, addToCart, openModal } = useGlobalContext();
   const { id, name, description, price, image, inCart } = detailProduct;
 
   return (
@@ -42,7 +42,10 @@ export default function Details() {
           <button
             className='button-container text-capitalize to-cart'
             disabled={inCart ? true : false}
-            onClick={() => addToCart(id)}
+            onClick={() => {
+              addToCart(id);
+              openModal(id);
+            }}
           >
             {inCart ? 'in cart' : 'add to cart'}
           </button>

@@ -6,7 +6,7 @@ import './styles/product-wrapper.css';
 
 export default function Product({ product }) {
   const { id, name, price, image, inCart } = product;
-  const { handleDetails, addToCart } = useGlobalContext();
+  const { handleDetails, addToCart, openModal } = useGlobalContext();
   return (
     <div className='product-wrapper col-9 mx-auto col-md-6 col-lg-3 my-3'>
       <div className='card'>
@@ -17,7 +17,10 @@ export default function Product({ product }) {
           <button
             className='cart-btn'
             disabled={inCart ? true : false}
-            onClick={() => addToCart(id)}
+            onClick={() => {
+              addToCart(id);
+              openModal(id);
+            }}
           >
             {inCart ? (
               <p className='text-capitalize mb-0' disabled>
