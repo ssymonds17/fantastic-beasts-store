@@ -6,16 +6,20 @@ const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(null);
   const [detailProduct, setDetailProduct] = useState(null);
   const [cart, setCart] = useState([]);
+  const [modalOpen, setModalOpen] = useState(true);
+  const [modalProduct, setModalProduct] = useState(detailProduct);
 
   // Functions
   const getItem = (id) => {
     const newProduct = products.find((item) => item.id === id);
     return newProduct;
   };
+
   const handleDetails = (id) => {
     const product = getItem(id);
     setDetailProduct(product);
   };
+
   const addToCart = (id) => {
     let tempProducts = [...products];
     const index = tempProducts.indexOf(getItem(id));
@@ -29,11 +33,29 @@ const ProductProvider = ({ children }) => {
 
     setProducts(tempProducts);
     setCart(newCart);
-    console.log(products, cart);
   };
+
+  const openModal = (id) => {
+    const product = getItem(id);
+    setModalProduct(product);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <ProductContext.Provider
-      value={{ products, setProducts, detailProduct, addToCart, handleDetails }}
+      value={{
+        products,
+        setProducts,
+        detailProduct,
+        addToCart,
+        handleDetails,
+        openModal,
+        closeModal
+      }}
     >
       {children}
     </ProductContext.Provider>
