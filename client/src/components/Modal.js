@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/button-container.css';
 
 export default function Modal() {
-  const { openModal, modalProduct, closeModal } = useGlobalContext();
+  const { modalOpen, modalProduct, closeModal } = useGlobalContext();
   const { image, name, price } = modalProduct;
 
   if (!modalOpen) {
@@ -12,7 +12,13 @@ export default function Modal() {
   } else {
     return (
       <div className='modal-container'>
-        <h3>Hello From Modal</h3>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize'>
+              <h5>item added to the cart</h5>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

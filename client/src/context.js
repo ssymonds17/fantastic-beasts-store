@@ -4,7 +4,13 @@ const ProductContext = React.createContext();
 
 const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(null);
-  const [detailProduct, setDetailProduct] = useState(null);
+  const [detailProduct, setDetailProduct] = useState({
+    id: 1,
+    name: 'Basilisk',
+    description: 'Default description',
+    price: 650,
+    image: 'basilisk.png'
+  });
   const [cart, setCart] = useState([]);
   const [modalOpen, setModalOpen] = useState(true);
   const [modalProduct, setModalProduct] = useState(detailProduct);
