@@ -41,6 +41,6 @@
   transition: all 0.8s linear;
 }
 .cart-btn:hover {
-  color: var(--mainBlue);
+  background: var(--mainBlue);
   cursor: pointer;
 }
