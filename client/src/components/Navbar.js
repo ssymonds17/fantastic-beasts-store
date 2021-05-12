@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../logo.svg';
+import '../components/styles/button-container.css';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
