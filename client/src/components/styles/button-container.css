@@ -13,9 +13,19 @@
 
 .button-container:hover {
   background: var(--lightBlue);
-  color: var(--mainBlue);
+  color: var(--mainWhite);
 }
 
 .button-container:focus {
   outline: 0;
+}
+
+.to-cart {
+  border-color: var(--mainYellow);
+  color: var(--mainYellow);
+}
+
+.to-cart:hover {
+  background-color: var(--mainYellow);
+  color: var(--mainWhite);
 }

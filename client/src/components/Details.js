@@ -40,7 +40,7 @@ export default function Details() {
             </button>
           </Link>
           <button
-            className='button-container text-capitalize'
+            className='button-container text-capitalize to-cart'
             disabled={inCart ? true : false}
             onClick={() => addToCart(id)}
           >
