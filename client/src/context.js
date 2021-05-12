@@ -12,7 +12,7 @@ const ProductProvider = ({ children }) => {
     image: 'basilisk.png'
   });
   const [cart, setCart] = useState([]);
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(detailProduct);
 
   // Functions
