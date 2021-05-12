@@ -5,7 +5,7 @@ import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, setProducts, handleDetail } = useGlobalContext();
+  const { products, setProducts } = useGlobalContext();
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
@@ -33,13 +33,7 @@ export default function ProductList() {
             <Title title='our products' />
             <div className='row'>
               {products.map((product) => {
-                return (
-                  <Product
-                    key={product.id}
-                    product={product}
-                    handleDetail={handleDetail}
-                  />
-                );
+                return <Product key={product.id} product={product} />;
               })}
             </div>
           </div>

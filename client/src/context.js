@@ -15,8 +15,13 @@ const ProductProvider = ({ children }) => {
   });
 
   // Functions
-  const handleDetails = () => {
-    console.log('Handle the details');
+  const getItem = (id) => {
+    const newProduct = products.find((item) => item.id === id);
+    return newProduct;
+  };
+  const handleDetails = (id) => {
+    const product = getItem(id);
+    setDetailProduct(product);
   };
   const addToCart = (id) => {
     console.log(`Product with id of ${id} added to cart`);
