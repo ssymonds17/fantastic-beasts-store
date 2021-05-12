@@ -9,6 +9,9 @@ export default function ProductList() {
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
+    newProducts.forEach((item) => {
+      item.inCart = false;
+    });
     setProducts(newProducts);
   };
 
