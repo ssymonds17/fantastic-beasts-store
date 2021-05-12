@@ -53,6 +53,8 @@ const ProductProvider = ({ children }) => {
         detailProduct,
         addToCart,
         handleDetails,
+        modalOpen,
+        modalProduct,
         openModal,
         closeModal
       }}
