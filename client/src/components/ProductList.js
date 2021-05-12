@@ -11,6 +11,7 @@ export default function ProductList() {
     const newProducts = await fetchProducts();
     newProducts.forEach((item) => {
       item.inCart = false;
+      item.price = parseInt(item.price);
     });
     setProducts(newProducts);
   };
