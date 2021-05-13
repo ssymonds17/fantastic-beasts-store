@@ -14,7 +14,9 @@ const ProductProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(detailProduct);
-  const [cartTotal, setCartTotal] = useState(0);
+  const [cartSubTotal, setCartSubTotal] = useState(10);
+  const [cartTax, setCartTax] = useState(20);
+  const [cartTotal, setCartTotal] = useState(30);
 
   // Functions
   const getItem = (id) => {
@@ -76,15 +78,18 @@ const ProductProvider = ({ children }) => {
         detailProduct,
         cart,
         addToCart,
+        cartSubTotal,
+        cartTax,
+        cartTotal,
+        clearCart,
         handleDetails,
-        modalOpen,
-        modalProduct,
-        openModal,
-        closeModal,
         increment,
         decrement,
         removeItem,
-        clearCart
+        modalOpen,
+        modalProduct,
+        openModal,
+        closeModal
       }}
     >
       {children}

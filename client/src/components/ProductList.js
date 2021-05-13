@@ -5,7 +5,7 @@ import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, setProducts, setCart } = useGlobalContext();
+  const { products, setProducts } = useGlobalContext();
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();

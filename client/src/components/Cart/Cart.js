@@ -3,6 +3,7 @@ import Title from '../Title';
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
+import CartTotals from './CartTotals';
 import { useGlobalContext } from '../../context';
 
 export default function Cart() {
@@ -14,6 +15,7 @@ export default function Cart() {
         <Title title='your cart' />
         <CartColumns />
         <CartList />
+        <CartTotals />
       </section>
     );
   } else {
