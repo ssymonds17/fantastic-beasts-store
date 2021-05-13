@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { fetchProducts } from './apis/product';
 
 const ProductContext = React.createContext();
 
@@ -18,7 +19,18 @@ const ProductProvider = ({ children }) => {
   const [cartTax, setCartTax] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
-  // Functions
+  // Functions ------------------------>
+  const loadProducts = async () => {
+    const newProducts = await fetchProducts();
+    newProducts.forEach((item) => {
+      item.price = parseInt(item.price);
+      item.inCart = false;
+      item.count = 0;
+      item.total = 0;
+    });
+    setProducts(newProducts);
+  };
+
   const getItem = (id) => {
     const newProduct = products.find((item) => item.id === id);
     return newProduct;
@@ -71,8 +83,17 @@ const ProductProvider = ({ children }) => {
   };
 
   const clearCart = () => {
-    console.log('Cart cleared');
+    setCart([]);
   };
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      loadProducts();
+      addTotals();
+    } else {
+      return null;
+    }
+  }, [cart]);
 
   const addTotals = () => {
     let subTotal = 0;
@@ -89,7 +110,7 @@ const ProductProvider = ({ children }) => {
     <ProductContext.Provider
       value={{
         products,
-        setProducts,
+        loadProducts,
         detailProduct,
         cart,
         addToCart,

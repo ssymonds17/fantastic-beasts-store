@@ -1,22 +1,10 @@
 import React, { useEffect } from 'react';
-import { fetchProducts } from '../apis/product';
 import { useGlobalContext } from '../context';
 import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, setProducts } = useGlobalContext();
-
-  const loadProducts = async () => {
-    const newProducts = await fetchProducts();
-    newProducts.forEach((item) => {
-      item.price = parseInt(item.price);
-      item.inCart = false;
-      item.count = 0;
-      item.total = 0;
-    });
-    setProducts(newProducts);
-  };
+  const { products, loadProducts } = useGlobalContext();
 
   useEffect(() => {
     if (!products) {
