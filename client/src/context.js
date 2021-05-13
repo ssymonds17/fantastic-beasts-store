@@ -74,6 +74,7 @@ const ProductProvider = ({ children }) => {
         products,
         setProducts,
         detailProduct,
+        cart,
         addToCart,
         handleDetails,
         modalOpen,

@@ -2,13 +2,23 @@ import React from 'react';
 import Title from '../Title';
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
+import { useGlobalContext } from '../../context';
 
 export default function Cart() {
-  return (
-    <section>
-      <Title title='your cart' />
-      <CartColumns />
-      <EmptyCart />
-    </section>
-  );
+  const { cart } = useGlobalContext();
+
+  if (cart.length > 0) {
+    return (
+      <section>
+        <Title title='your cart' />
+        <CartColumns />
+      </section>
+    );
+  } else {
+    return (
+      <section>
+        <EmptyCart />
+      </section>
+    );
+  }
 }
