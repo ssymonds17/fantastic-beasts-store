@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 const ProductContext = React.createContext();
 
@@ -14,9 +14,9 @@ const ProductProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(detailProduct);
-  const [cartSubTotal, setCartSubTotal] = useState(10);
-  const [cartTax, setCartTax] = useState(20);
-  const [cartTotal, setCartTotal] = useState(30);
+  const [cartSubTotal, setCartSubTotal] = useState(0);
+  const [cartTax, setCartTax] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   // Functions
   const getItem = (id) => {
@@ -29,7 +29,7 @@ const ProductProvider = ({ children }) => {
     setDetailProduct(product);
   };
 
-  const addToCart = (id) => {
+  const addToCart = async (id) => {
     let tempProducts = [...products];
     const index = tempProducts.indexOf(getItem(id));
     const product = tempProducts[index];
@@ -43,6 +43,10 @@ const ProductProvider = ({ children }) => {
     setProducts(tempProducts);
     setCart(newCart);
   };
+
+  useEffect(() => {
+    addTotals();
+  }, [cart]);
 
   const openModal = (id) => {
     const product = getItem(id);
@@ -68,6 +72,17 @@ const ProductProvider = ({ children }) => {
 
   const clearCart = () => {
     console.log('Cart cleared');
+  };
+
+  const addTotals = () => {
+    let subTotal = 0;
+    cart.map((item) => (subTotal += item.total));
+    const tempTax = subTotal * 0.2;
+    const tax = parseFloat(tempTax.toFixed(2));
+    const total = subTotal + tax;
+    setCartSubTotal(subTotal);
+    setCartTax(tax);
+    setCartTotal(total);
   };
 
   return (
