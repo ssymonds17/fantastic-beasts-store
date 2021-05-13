@@ -1,9 +1,10 @@
 import React from 'react';
+import Title from '../Title';
 
 export default function Cart() {
   return (
-    <div>
-      <h3>Hello from Cart</h3>
-    </div>
+    <section>
+      <Title title='your cart' />
+    </section>
   );
 }
