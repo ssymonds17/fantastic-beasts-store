@@ -82,8 +82,20 @@ const ProductProvider = ({ children }) => {
     addTotals();
   };
 
-  const decrement = (id) => {
-    console.log('Decrement');
+  const decrement = async (id) => {
+    let tempCart = [...cart];
+    const selectedProduct = tempCart.find((item) => item.id === id);
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count - 1;
+
+    if (product.count === 0) {
+      removeItem(id);
+    } else {
+      product.total = product.count * product.price;
+      await setCart(tempCart);
+      addTotals();
+    }
   };
 
   const removeItem = async (id) => {
