@@ -16,8 +16,6 @@ export default function ProductList() {
       item.total = 0;
     });
     setProducts(newProducts);
-    // Remove below function when Cart is completed
-    setCart(newProducts);
   };
 
   useEffect(() => {

@@ -84,9 +84,7 @@ const ProductProvider = ({ children }) => {
         increment,
         decrement,
         removeItem,
-        clearCart,
-        // REMOVE setCart after Cart component is completed
-        setCart
+        clearCart
       }}
     >
       {children}
