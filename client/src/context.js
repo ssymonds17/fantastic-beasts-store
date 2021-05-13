@@ -70,8 +70,16 @@ const ProductProvider = ({ children }) => {
     setModalOpen(false);
   };
 
-  const increment = (id) => {
-    console.log('Increment');
+  const increment = async (id) => {
+    let tempCart = [...cart];
+    const selectedProduct = tempCart.find((item) => item.id === id);
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count + 1;
+    product.total = product.count * product.price;
+
+    await setCart(tempCart);
+    addTotals();
   };
 
   const decrement = (id) => {
