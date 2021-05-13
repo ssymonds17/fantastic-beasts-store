@@ -2,6 +2,7 @@ import React from 'react';
 import Title from '../Title';
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
+import CartList from './CartList';
 import { useGlobalContext } from '../../context';
 
 export default function Cart() {
@@ -12,6 +13,7 @@ export default function Cart() {
       <section>
         <Title title='your cart' />
         <CartColumns />
+        <CartList />
       </section>
     );
   } else {

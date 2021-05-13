@@ -5,7 +5,7 @@ import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, setProducts } = useGlobalContext();
+  const { products, setProducts, setCart } = useGlobalContext();
 
   const loadProducts = async () => {
     const newProducts = await fetchProducts();
@@ -16,6 +16,8 @@ export default function ProductList() {
       item.total = 0;
     });
     setProducts(newProducts);
+    // Remove below function when Cart is completed
+    setCart(newProducts);
   };
 
   useEffect(() => {
