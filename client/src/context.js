@@ -41,7 +41,7 @@ const ProductProvider = ({ children }) => {
     setDetailProduct(product);
   };
 
-  const addToCart = async (id) => {
+  const addToCart = (id) => {
     let tempProducts = [...products];
     const index = tempProducts.indexOf(getItem(id));
     const product = tempProducts[index];
@@ -78,8 +78,19 @@ const ProductProvider = ({ children }) => {
     console.log('Decrement');
   };
 
-  const removeItem = (id) => {
-    console.log('Item removed');
+  const removeItem = async (id) => {
+    let tempProducts = [...products];
+    let tempCart = [...cart];
+    tempCart = tempCart.filter((item) => item.id !== id);
+    const index = tempProducts.indexOf(getItem(id));
+    let removedProduct = tempProducts[index];
+    removedProduct.inCart = false;
+    removedProduct.count = 0;
+    removedProduct.total = 0;
+
+    await setCart(tempCart);
+    await setProducts(tempProducts);
+    addTotals();
   };
 
   const clearCart = () => {
