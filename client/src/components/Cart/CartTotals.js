@@ -30,6 +30,11 @@ export default function CartTotals() {
               <span>total:</span>
               <strong>¥{cartTotal}</strong>
             </h5>
+            <Link to='/checkout'>
+              <button className='btn btn-outline-primary text-uppercase mb-3 px-5'>
+                go to checkout
+              </button>
+            </Link>
           </div>
         </div>
       </div>
