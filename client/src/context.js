@@ -14,6 +14,7 @@ const ProductProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(detailProduct);
+  const [cartTotal, setCartTotal] = useState(0);
 
   // Functions
   const getItem = (id) => {
@@ -51,6 +52,22 @@ const ProductProvider = ({ children }) => {
     setModalOpen(false);
   };
 
+  const increment = (id) => {
+    console.log('Increment');
+  };
+
+  const decrement = (id) => {
+    console.log('Decrement');
+  };
+
+  const removeItem = (id) => {
+    console.log('Item removed');
+  };
+
+  const clearCart = () => {
+    console.log('Cart cleared');
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -62,7 +79,11 @@ const ProductProvider = ({ children }) => {
         modalOpen,
         modalProduct,
         openModal,
-        closeModal
+        closeModal,
+        increment,
+        decrement,
+        removeItem,
+        clearCart
       }}
     >
       {children}
