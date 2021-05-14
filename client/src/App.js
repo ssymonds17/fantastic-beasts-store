@@ -8,6 +8,7 @@ import Details from './components/Details';
 import Cart from './components/Cart/Cart';
 import Default from './components/Default';
 import Modal from './components/Modal';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/' component={ProductList} />
         <Route path='/details' component={Details} />
         <Route path='/cart' component={Cart} />
+        <Route path='/register' component={Register} />
         <Route component={Default} />
       </Switch>
       <Modal />
