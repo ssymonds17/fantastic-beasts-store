@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const bcrypt = require('bcryptjs');
 const UserModel = require('../models/user');
 const UserModelInstance = new UserModel();
 
@@ -14,6 +15,8 @@ module.exports = class AuthService {
       if (user) {
         throw createError(409, 'Email already in use');
       }
+
+      await this.hashPassword(data);
 
       // If user doesn't already exist then create new user record
       return await UserModelInstance.create(data);
@@ -42,5 +45,12 @@ module.exports = class AuthService {
     } catch (err) {
       throw createError(500, err);
     }
+  }
+
+  async hashPassword(data) {
+    const password = data.password;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    data.password = hashedPassword;
+    return data;
   }
 };
