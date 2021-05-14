@@ -35,6 +35,11 @@ export default function Register() {
       setError('Email address is required');
       return null;
     }
+    // Check to see if the email address is valid
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setError('Invalid email address');
+      return null;
+    }
     if (!password) {
       setError('Password is required');
       return null;
