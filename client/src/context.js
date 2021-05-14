@@ -115,26 +115,25 @@ const ProductProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
+    addTotals();
+    loadProducts();
   };
 
-  useEffect(() => {
-    if (cart.length === 0) {
-      loadProducts();
-      addTotals();
-    } else {
-      return null;
-    }
-  }, [cart]);
-
   const addTotals = () => {
-    let subTotal = 0;
-    cart.map((item) => (subTotal += item.total));
-    const tempTax = subTotal * 0.2;
-    const tax = parseFloat(tempTax.toFixed(2));
-    const total = subTotal + tax;
-    setCartSubTotal(subTotal);
-    setCartTax(tax);
-    setCartTotal(total);
+    if (cart.length === 0) {
+      setCartSubTotal(0);
+      setCartTax(0);
+      setCartTotal(0);
+    } else {
+      let subTotal = 0;
+      cart.map((item) => (subTotal += item.total));
+      const tempTax = subTotal * 0.2;
+      const tax = parseFloat(tempTax.toFixed(2));
+      const total = subTotal + tax;
+      setCartSubTotal(subTotal);
+      setCartTax(tax);
+      setCartTotal(total);
+    }
   };
 
   return (
