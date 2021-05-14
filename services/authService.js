@@ -5,7 +5,7 @@ const UserModelInstance = new UserModel();
 
 module.exports = class AuthService {
   async register(data) {
-    const { email } = data;
+    const { email, password } = data;
 
     try {
       // Check to see if the user already exists
@@ -14,6 +14,10 @@ module.exports = class AuthService {
       // If user already exists then reject
       if (user) {
         throw createError(409, 'Email already in use');
+      }
+
+      if (!email || !password) {
+        throw createError(409, 'A valid email and password is required');
       }
 
       await this.hashPassword(data);
