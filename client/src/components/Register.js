@@ -8,10 +8,6 @@ export default function Register() {
   const history = useHistory();
 
   const handleRegister = async (data) => {
-    if (error) {
-      setError('');
-    }
-
     const validate = await submitValidation(data);
 
     if (!validate) {
@@ -21,6 +17,7 @@ export default function Register() {
     const { credentials } = data;
     try {
       await registerUser(credentials);
+      setError('');
       history.push('/');
     } catch (err) {
       const newError = err.message;
@@ -30,18 +27,9 @@ export default function Register() {
 
   const submitValidation = (data) => {
     const { email, password, confirmPassword } = data;
-    // Check if email and/or password exist
-    if (!email) {
-      setError('Email address is required');
-      return null;
-    }
     // Check to see if the email address is valid
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
       setError('Invalid email address');
-      return null;
-    }
-    if (!password) {
-      setError('Password is required');
       return null;
     }
     // Check that passwords match
@@ -49,6 +37,7 @@ export default function Register() {
       setError('Passwords must match');
       return null;
     }
+    return 'Valid';
   };
 
   return (
@@ -68,24 +57,42 @@ export default function Register() {
             <h1>Register</h1>
           </header>
           <label htmlFor='first_name'>First Name</label>
-          <Field id='first_name' name='first_name' placeholder='John' />
+          <Field
+            id='first_name'
+            name='first_name'
+            placeholder='John'
+            required
+          />
           <label htmlFor='last_name'>Last Name</label>
-          <Field id='last_name' name='last_name' placeholder='Doe' />
-          <label htmlFor='email'>Email</label>
-          <Field id='email' name='email' placeholder='email@example.com' />
-          <label htmlFor='password'>Password</label>
+          <Field id='last_name' name='last_name' placeholder='Doe' required />
+          <label htmlFor='email'>
+            Email<small>*</small>
+          </label>
+          <Field
+            id='email'
+            name='email'
+            placeholder='email@example.com'
+            required
+          />
+          <label htmlFor='password'>
+            Password<small>*</small>
+          </label>
           <Field
             id='password'
             name='password'
             placeholder='password'
             type='password'
+            required
           />
-          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <label htmlFor='confirmPassword'>
+            Confirm Password<small>*</small>
+          </label>
           <Field
             id='confirmPassword'
             name='confirmPassword'
             placeholder='password'
             type='password'
+            required
           />
           <button type='submit' className='btn btn-primary'>
             Submit
