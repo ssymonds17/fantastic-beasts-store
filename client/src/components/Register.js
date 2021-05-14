@@ -42,7 +42,7 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className='container'>
       <div className='form-container'>
         <div className='form-wrapper'>
           <Formik
