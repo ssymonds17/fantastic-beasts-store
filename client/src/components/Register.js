@@ -44,8 +44,11 @@ export default function Register() {
     <div className='container-fluid'>
       <Formik
         initialValues={{
+          first_name: '',
+          last_name: '',
           email: '',
-          password: ''
+          password: '',
+          confirmPassword: ''
         }}
         validateOnBlur
         onSubmit={async (data) => {
