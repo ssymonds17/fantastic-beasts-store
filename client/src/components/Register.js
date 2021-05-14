@@ -1,32 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from '../apis/auth';
 
 export default function Register() {
+  const [error, setError] = useState('');
   const history = useHistory();
 
-  const handleRegister = async (credentials) => {
+  const handleRegister = async (data) => {
+    if (error) {
+      setError('');
+    }
+
+    const validate = await submitValidation(data);
+
+    if (!validate) {
+      return null;
+    }
+
+    const { credentials } = data;
     try {
       await registerUser(credentials);
       history.push('/');
-    } catch (err) {}
+    } catch (err) {
+      const newError = err.message;
+      setError(newError);
+    }
   };
 
-  // Validation schema for registration form
-  const registrationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email address is required'),
-
-    password: Yup.string().required('Password is required'),
-
-    confirmPassword: Yup.string().oneOf(
-      [Yup.ref('password'), null],
-      'Passwords must match'
-    )
-  });
+  const submitValidation = (data) => {
+    const { email, password, confirmPassword } = data;
+    // Check if email and/or password exist
+    if (!email) {
+      setError('Email address is required');
+      return null;
+    }
+    if (!password) {
+      setError('Password is required');
+      return null;
+    }
+    // Check that passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords must match');
+      return null;
+    }
+  };
 
   return (
     <div className='container-fluid'>
@@ -35,11 +53,9 @@ export default function Register() {
           email: '',
           password: ''
         }}
-        validateSchema={registrationSchema}
         validateOnBlur
         onSubmit={async (data) => {
-          const { confirmPassword, ...credentials } = data;
-          await handleRegister(credentials);
+          await handleRegister(data);
         }}
       >
         <Form className='text-center mx-auto'>
@@ -69,6 +85,11 @@ export default function Register() {
           <button type='submit' className='btn btn-primary'>
             Submit
           </button>
+          {error && (
+            <div>
+              <strong>{error}</strong>
+            </div>
+          )}
         </Form>
       </Formik>
     </div>
