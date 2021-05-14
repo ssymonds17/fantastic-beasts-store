@@ -9,6 +9,7 @@ import Cart from './components/Cart/Cart';
 import Default from './components/Default';
 import Modal from './components/Modal';
 import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/details' component={Details} />
         <Route path='/cart' component={Cart} />
         <Route path='/register' component={Register} />
+        <Route path='/login' component={Login} />
         <Route component={Default} />
       </Switch>
       <Modal />

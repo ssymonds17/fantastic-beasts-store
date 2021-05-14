@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { registerUser } from '../apis/auth';
 import './styles/register.css';
 
@@ -119,7 +119,9 @@ export default function Register() {
       </div>
       <div className='text-center mt-3'>
         <h3>Already registered?</h3>
-        <button className='btn btn-success'>Log In</button>
+        <Link to='/login'>
+          <button className='btn btn-success'>Log In</button>
+        </Link>
       </div>
     </div>
   );
