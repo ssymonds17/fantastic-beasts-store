@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
-import { registerUser } from '../apis/auth';
+import { loginUser } from '../apis/auth';
 import './styles/register.css';
 
 export default function Login() {
@@ -9,14 +9,14 @@ export default function Login() {
   const history = useHistory();
 
   const handleLogin = async (data) => {
-    const { credentials } = data;
     try {
-      // Change to loginUser(credentials)
-      // await registerUser(credentials);
+      await loginUser(data);
       setError('');
       history.push('/');
     } catch (err) {
       const newError = err.message;
+      console.log('Error message: ', newError);
+
       setError(newError);
     }
   };
@@ -27,11 +27,13 @@ export default function Login() {
         <div className='form-wrapper'>
           <Formik
             initialValues={{
-              email: '',
+              username: '',
               password: ''
             }}
             validateOnBlur
             onSubmit={async (data) => {
+              console.log('onSubmit', data);
+
               await handleLogin(data);
             }}
           >
@@ -39,10 +41,11 @@ export default function Login() {
               <header className='text-center'>
                 <h1>Login</h1>
               </header>
-              <label htmlFor='email'>Email</label>
+              <label htmlFor='username'>Email</label>
               <Field
-                id='email'
-                name='email'
+                // Username values required so that passport can process email as "username" during authentication
+                id='username'
+                name='username'
                 placeholder='email@example.com'
                 required
               />

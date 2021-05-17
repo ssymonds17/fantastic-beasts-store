@@ -30,6 +30,7 @@ module.exports = class AuthService {
   }
 
   async login(data) {
+    // TODO Compare password with hashed password using bcrypt. See tutorial
     const { email, password } = data;
 
     try {
@@ -40,8 +41,14 @@ module.exports = class AuthService {
         throw createError(401, 'Incorrect username or password');
       }
 
-      // If user exists then check passwords match
-      if (user.password !== password) {
+      // Compare password provided by the user and what is returned from the database using bcrypt
+      const validPassword = await this.comparePasswords(
+        password,
+        user.password
+      );
+
+      // If passwords do not match then return error
+      if (!validPassword) {
         throw createError(401, 'Incorrect username or password');
       }
 
@@ -56,5 +63,17 @@ module.exports = class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
     data.password = hashedPassword;
     return data;
+  }
+
+  async comparePasswords(clientPassword, dbPassword) {
+    try {
+      if (await bcrypt.compare(clientPassword, dbPassword)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      throw createError(401, 'Incorrect username or password');
+    }
   }
 };
