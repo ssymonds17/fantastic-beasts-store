@@ -10,7 +10,6 @@ export default function ProductList() {
     if (!products) {
       loadProducts();
     }
-    console.log(products);
   }, [products]);
 
   if (!products) {

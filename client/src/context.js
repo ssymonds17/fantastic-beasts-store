@@ -19,6 +19,7 @@ const ProductProvider = ({ children }) => {
   const [cartTax, setCartTax] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // Functions ------------------------>
   const loadProducts = async () => {
@@ -158,7 +159,9 @@ const ProductProvider = ({ children }) => {
         openModal,
         closeModal,
         loggedIn,
-        setLoggedIn
+        setLoggedIn,
+        currentUser,
+        setCurrentUser
       }}
     >
       {children}

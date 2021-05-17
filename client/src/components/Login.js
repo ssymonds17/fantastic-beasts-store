@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
+import { useGlobalContext } from '../context';
 import { loginUser } from '../apis/auth';
 import './styles/register.css';
 
 export default function Login() {
+  const { setLoggedIn, setCurrentUser } = useGlobalContext();
   const [error, setError] = useState('');
   const history = useHistory();
 
   const handleLogin = async (data) => {
     try {
-      await loginUser(data);
+      const user = await loginUser(data);
+      const { id, first_name, last_name, email } = user;
       setError('');
+      setCurrentUser({
+        id,
+        first_name,
+        last_name,
+        email
+      });
+      setLoggedIn(true);
       history.push('/');
     } catch (err) {
       const newError = err.message;
