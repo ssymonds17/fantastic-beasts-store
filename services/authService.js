@@ -30,7 +30,6 @@ module.exports = class AuthService {
   }
 
   async login(data) {
-    // TODO Compare password with hashed password using bcrypt. See tutorial
     const { email, password } = data;
 
     try {
@@ -74,6 +73,36 @@ module.exports = class AuthService {
       }
     } catch (err) {
       throw createError(401, 'Incorrect username or password');
+    }
+  }
+
+  async googleLogin(profile) {
+    const { id, name } = profile;
+    const { givenName, familyName } = name;
+
+    try {
+      // Check if user exists
+      const user = await UserModelInstance.findOneByGoogleId(id);
+
+      // If no user found then create a new user
+      if (!user) {
+        const first_name = givenName.toLowerCase();
+        const last_name = familyName.toLowerCase();
+        const emailPlaceholder = first_name + last_name + id + '@email.com';
+
+        const data = {
+          first_name,
+          last_name,
+          email: emailPlaceholder,
+          google_id: id
+        };
+        return await UserModelInstance.create(data);
+      }
+
+      // If user does exist then return the user
+      return user;
+    } catch (err) {
+      throw createError(500, err);
     }
   }
 };

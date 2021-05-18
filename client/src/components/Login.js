@@ -42,8 +42,6 @@ export default function Login() {
             }}
             validateOnBlur
             onSubmit={async (data) => {
-              console.log('onSubmit', data);
-
               await handleLogin(data);
             }}
           >
@@ -78,6 +76,18 @@ export default function Login() {
             </Form>
           </Formik>
         </div>
+      </div>
+      <div className='social-btn-container'>
+        {/* PRODUCTION
+        <button>
+          <a href='https://fantastic-beasts-store.herokuapp.com/api/v1/auth/google'>
+            Google
+          </a>
+        </button> */}
+        {/* DEVELOPMENT */}
+        <button>
+          <a href='http://localhost:8080/api/v1/auth/google'>Google</a>
+        </button>
       </div>
       <div className='text-center mt-3'>
         <h3>Need to register?</h3>

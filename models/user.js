@@ -8,11 +8,25 @@ module.exports = class UserModel {
   // Create a new user record
   async create(data) {
     try {
-      const { first_name, last_name, email, password } = data;
+      const {
+        first_name,
+        last_name,
+        email,
+        password = '',
+        google_id = null
+      } = data;
       const created = moment.utc().toISOString();
       const id = uuid.v4();
-      const statement = `INSERT INTO customers VALUES ($1, $2, $3, $4, $5, $6)`;
-      const values = [id, first_name, last_name, email, password, created];
+      const statement = `INSERT INTO customers VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+      const values = [
+        id,
+        first_name,
+        last_name,
+        email,
+        password,
+        created,
+        google_id
+      ];
 
       // Execute query
       const result = await db.query(statement, values);
@@ -96,6 +110,24 @@ module.exports = class UserModel {
         return result.rows[0];
       }
 
+      return null;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async findOneByGoogleId(id) {
+    try {
+      // Set query statement and values
+      const statement = `SELECT * FROM customers WHERE google_id = $1`;
+      const values = [id];
+
+      // Execute query
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
       return null;
     } catch (err) {
       throw new Error(err);
