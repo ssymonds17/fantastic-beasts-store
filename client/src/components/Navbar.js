@@ -38,11 +38,17 @@ export default function Navbar({ user }) {
       {/* Conditionally display user account and logout buttons */}
       {user && (
         <>
-          <button style={{ textTransform: 'capitalize' }}>
-            {user.first_name}
+          <button className='button-container'>{user.first_name}</button>
+          <button className='button-container' onClick={() => logout()}>
+            Logout
           </button>
-          <button onClick={() => logout()}>Logout</button>
         </>
+      )}
+      {/* If no user then display login button */}
+      {!user && (
+        <Link to='/login'>
+          <button className='button-container'>Login</button>
+        </Link>
       )}
     </nav>
   );
