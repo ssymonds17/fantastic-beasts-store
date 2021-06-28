@@ -126,6 +126,7 @@ const ProductProvider = ({ children }) => {
       setCartSubTotal(0);
       setCartTax(0);
       setCartTotal(0);
+      setLocalStorageCartTotals();
     } else {
       let subTotal = 0;
       cart.map((item) => (subTotal += item.total));
@@ -135,7 +136,15 @@ const ProductProvider = ({ children }) => {
       setCartSubTotal(subTotal);
       setCartTax(tax);
       setCartTotal(total);
+      setLocalStorageCartTotals(subTotal, tax, total);
     }
+  };
+
+  // Set local storage cart details so cart values can persist across sessions
+  const setLocalStorageCartTotals = (subTotal = 0, tax = 0, total = 0) => {
+    localStorage.setItem('cart_subtotal', subTotal);
+    localStorage.setItem('cart_tax', tax);
+    localStorage.setItem('cart_total', total);
   };
 
   const setUserInLocalStorage = (id = null) => {
