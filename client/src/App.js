@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useGlobalContext } from './context';
-import { isLoggedIn } from './apis/auth';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
 import Details from './components/Details';
@@ -14,25 +13,26 @@ import Register from './components/Register';
 import Login from './components/Login';
 
 function App() {
-  const { currentUser, setCurrentUser } = useGlobalContext();
+  const {
+    currentUser,
+    setUserInLocalStorage,
+    checkIdInUrl,
+    checkLoggedIn
+  } = useGlobalContext();
 
   useEffect(() => {
-    async function checkLoggedIn() {
-      const response = await isLoggedIn();
-      return response;
+    if (checkIdInUrl()) {
+      setUserInLocalStorage();
     }
 
-    const user = checkLoggedIn();
-    if (!user) {
-      return null;
-    } else {
-      setCurrentUser(user);
-    }
+    checkLoggedIn();
   }, []);
+
+  console.log(currentUser);
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar user={currentUser} />
       <Switch>
         <Route exact path='/' component={ProductList} />
         <Route path='/details' component={Details} />

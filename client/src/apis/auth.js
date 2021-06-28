@@ -26,11 +26,12 @@ export const loginUser = async (data) => {
   }
 };
 
-export const isLoggedIn = async () => {
+export const isLoggedIn = async (id) => {
   try {
-    // const response = await axios.get(`${baseUrl}/auth/login`, data);
+    // const response = await axios.get(`${baseUrl}/auth/login`, id);
     const response = await axios.get(
-      `http://localhost:8080/api/v1/auth/logged_in`
+      `http://localhost:8080/api/v1/auth/logged_in`,
+      { params: { id } }
     );
     return response.data;
   } catch (err) {

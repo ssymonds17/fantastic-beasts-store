@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { fetchProducts } from './apis/product';
+import { isLoggedIn } from './apis/auth';
 
 const ProductContext = React.createContext();
 
@@ -138,6 +139,27 @@ const ProductProvider = ({ children }) => {
     }
   };
 
+  const setUserInLocalStorage = () => {
+    const id = window.location.search.slice(4);
+    localStorage.setItem('user_id', id);
+  };
+
+  const checkIdInUrl = () => {
+    return window.location.search.indexOf('?id=') >= 0;
+  };
+
+  const checkLoggedIn = async () => {
+    // Check local storage for user id. If it doesn't exist then user is definitely not logged in and we return null. If an id does exist then we use that id to check against the database.
+    const id = localStorage.getItem('user_id');
+    if (!id) return null;
+    const response = await isLoggedIn(id);
+    if (response) {
+      setCurrentUser(response);
+    } else {
+      setCurrentUser(null);
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -161,7 +183,10 @@ const ProductProvider = ({ children }) => {
         loggedIn,
         setLoggedIn,
         currentUser,
-        setCurrentUser
+        setCurrentUser,
+        setUserInLocalStorage,
+        checkIdInUrl,
+        checkLoggedIn
       }}
     >
       {children}

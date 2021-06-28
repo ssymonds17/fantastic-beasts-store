@@ -78,8 +78,8 @@ export default function Login() {
         </div>
       </div>
       <div className='social-btn-container'>
-        {/* PRODUCTION
-        <button>
+        {/* PRODUCTION */}
+        {/* <button>
           <a href='https://fantastic-beasts-store.herokuapp.com/api/v1/auth/google'>
             Google
           </a>

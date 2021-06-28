@@ -16,14 +16,11 @@ module.exports = (app) => {
 
   // Set method to serialise cookie data
   passport.serializeUser((user, done) => {
-    console.log('serialise', user);
     done(null, user.id);
   });
 
   // Set method to deserialise cookie data
   passport.deserializeUser((id, done) => {
-    console.log('deserialize');
-
     UserModelInstance.findOneById(id)
       .then((user) => {
         done(null, user);

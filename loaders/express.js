@@ -1,11 +1,14 @@
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { SESSION_SECRET } = require('../config');
 
 module.exports = (app) => {
   // Enable CORS to all origins by default
   app.use(cors());
+
+  app.use(cookieParser());
 
   // Parse JSON from requests
   app.use(bodyParser.json());

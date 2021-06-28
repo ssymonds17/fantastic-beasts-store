@@ -3,7 +3,9 @@ import logo from '../logo.svg';
 import '../components/styles/button-container.css';
 import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar({ user }) {
+  console.log(user);
+
   return (
     <nav className='navbar navbar-expand-sm navbar-dark px-sm-5 nav-wrapper'>
       <Link to='/'>
@@ -28,6 +30,12 @@ export default function Navbar() {
           my cart
         </button>
       </Link>
+      {/* Conditionally display User account button */}
+      {user && (
+        <button style={{ textTransform: 'capitalize' }}>
+          {user.first_name}
+        </button>
+      )}
     </nav>
   );
 }
