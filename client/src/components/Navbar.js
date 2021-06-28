@@ -1,9 +1,16 @@
 import React from 'react';
 import logo from '../logo.svg';
 import '../components/styles/button-container.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function Navbar({ user }) {
+  const history = useHistory();
+
+  const logout = async () => {
+    localStorage.removeItem('user_id');
+    history.push('/');
+  };
+
   return (
     <nav className='navbar navbar-expand-sm navbar-dark px-sm-5 nav-wrapper'>
       <Link to='/'>
@@ -28,11 +35,14 @@ export default function Navbar({ user }) {
           my cart
         </button>
       </Link>
-      {/* Conditionally display User account button */}
+      {/* Conditionally display user account and logout buttons */}
       {user && (
-        <button style={{ textTransform: 'capitalize' }}>
-          {user.first_name}
-        </button>
+        <>
+          <button style={{ textTransform: 'capitalize' }}>
+            {user.first_name}
+          </button>
+          <button onClick={() => logout()}>Logout</button>
+        </>
       )}
     </nav>
   );

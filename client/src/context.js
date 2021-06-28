@@ -154,7 +154,7 @@ const ProductProvider = ({ children }) => {
   const checkLoggedIn = async () => {
     // Check local storage for user id. If it doesn't exist then user is definitely not logged in and we return null. If an id does exist then we use that id to check against the database.
     const id = localStorage.getItem('user_id');
-    if (!id) return null;
+    if (!id) return setCurrentUser(null);
     const response = await isLoggedIn(id);
     if (response) {
       setCurrentUser(response);
