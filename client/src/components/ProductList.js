@@ -4,13 +4,16 @@ import Product from './Product';
 import Title from './Title';
 
 export default function ProductList() {
-  const { products, loadProducts } = useGlobalContext();
+  const { products, loadProducts, checkLoggedIn } = useGlobalContext();
 
+  useEffect(() => {
+    checkLoggedIn();
+  });
   useEffect(() => {
     if (!products) {
       loadProducts();
     }
-  }, [products, loadProducts]);
+  }, [products]);
 
   if (!products) {
     return <h1>Loading...</h1>;

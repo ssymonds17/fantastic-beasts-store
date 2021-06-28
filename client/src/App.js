@@ -26,7 +26,7 @@ function App() {
     }
 
     checkLoggedIn();
-  }, [checkIdInUrl, setUserInLocalStorage, checkLoggedIn]);
+  }, []);
 
   return (
     <React.Fragment>
