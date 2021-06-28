@@ -6,27 +6,19 @@ import { loginUser } from '../apis/auth';
 import './styles/register.css';
 
 export default function Login() {
-  const { setLoggedIn, setCurrentUser } = useGlobalContext();
+  const { setUserInLocalStorage } = useGlobalContext();
   const [error, setError] = useState('');
   const history = useHistory();
 
   const handleLogin = async (data) => {
     try {
       const user = await loginUser(data);
-      const { id, first_name, last_name, email } = user;
       setError('');
-      setCurrentUser({
-        id,
-        first_name,
-        last_name,
-        email
-      });
-      setLoggedIn(true);
+      setUserInLocalStorage(user.id);
       history.push('/');
     } catch (err) {
       const newError = err.message;
       console.log('Error message: ', newError);
-
       setError(newError);
     }
   };

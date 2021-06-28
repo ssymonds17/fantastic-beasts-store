@@ -4,8 +4,6 @@ import '../components/styles/button-container.css';
 import { Link } from 'react-router-dom';
 
 export default function Navbar({ user }) {
-  console.log(user);
-
   return (
     <nav className='navbar navbar-expand-sm navbar-dark px-sm-5 nav-wrapper'>
       <Link to='/'>

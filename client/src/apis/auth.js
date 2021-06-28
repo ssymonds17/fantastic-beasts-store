@@ -19,7 +19,11 @@ export const loginUser = async (data) => {
   }
 
   try {
-    const response = await axios.post(`${baseUrl}/auth/login`, data);
+    // const response = await axios.post(`${baseUrl}/auth/login`, data);
+    const response = await axios.post(
+      `http://localhost:8080/api/v1/auth/login`,
+      data
+    );
     return response.data;
   } catch (err) {
     throw err.response.data;

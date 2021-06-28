@@ -19,7 +19,6 @@ const ProductProvider = ({ children }) => {
   const [cartSubTotal, setCartSubTotal] = useState(0);
   const [cartTax, setCartTax] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   // Functions ------------------------>
@@ -139,9 +138,13 @@ const ProductProvider = ({ children }) => {
     }
   };
 
-  const setUserInLocalStorage = () => {
-    const id = window.location.search.slice(4);
-    localStorage.setItem('user_id', id);
+  const setUserInLocalStorage = (id = null) => {
+    if (id) {
+      localStorage.setItem('user_id', id);
+    } else {
+      const id = window.location.search.slice(4);
+      localStorage.setItem('user_id', id);
+    }
   };
 
   const checkIdInUrl = () => {
@@ -180,8 +183,6 @@ const ProductProvider = ({ children }) => {
         modalProduct,
         openModal,
         closeModal,
-        loggedIn,
-        setLoggedIn,
         currentUser,
         setCurrentUser,
         setUserInLocalStorage,

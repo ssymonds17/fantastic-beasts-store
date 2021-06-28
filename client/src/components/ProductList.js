@@ -10,7 +10,7 @@ export default function ProductList() {
     if (!products) {
       loadProducts();
     }
-  }, [products]);
+  }, [products, loadProducts]);
 
   if (!products) {
     return <h1>Loading...</h1>;
