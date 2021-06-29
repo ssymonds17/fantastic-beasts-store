@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../components/styles/button-container.css';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -13,19 +12,10 @@ export default function Navbar({ user }) {
 
   return (
     <nav className='navbar navbar-expand-sm navbar-dark px-sm-5 nav-wrapper'>
-      <Link to='/'>
-        <img
-          // TODO Change logo to relevant SVG
-          src={logo}
-          alt='store'
-          className='navbar-brand'
-          style={{ color: 'red' }}
-        />
-      </Link>
       <ul className='navbar-nav align-items-centre'>
         <li className='nav-item ml-5'>
           <Link to='/' className='nav-link'>
-            products
+            home
           </Link>
         </li>
       </ul>
@@ -38,8 +28,13 @@ export default function Navbar({ user }) {
       {/* Conditionally display user account and logout buttons */}
       {user && (
         <>
-          <button className='button-container'>{user.first_name}</button>
-          <button className='button-container' onClick={() => logout()}>
+          <button className='button-container user-btn'>
+            {user.first_name}
+          </button>
+          <button
+            className='button-container logout-btn'
+            onClick={() => logout()}
+          >
             Logout
           </button>
         </>
@@ -47,7 +42,7 @@ export default function Navbar({ user }) {
       {/* If no user then display login button */}
       {!user && (
         <Link to='/login'>
-          <button className='button-container'>Login</button>
+          <button className='button-container login-btn'>Login</button>
         </Link>
       )}
     </nav>

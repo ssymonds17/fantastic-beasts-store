@@ -29,3 +29,22 @@
   background-color: var(--mainYellow);
   color: var(--mainWhite);
 }
+
+.user-btn {
+  border: 0.05rem solid white;
+  background: none;
+  background-color: green;
+  color: white;
+}
+.logout-btn {
+  border: 0.05rem solid white;
+  background: none;
+  background-color: red;
+  color: white;
+}
+.login-btn {
+  border: 0.05rem solid white;
+  background: none;
+  background-color: orange;
+  color: white;
+}
