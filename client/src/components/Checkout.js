@@ -10,7 +10,8 @@ export default function Checkout() {
     cart,
     cartSubTotal,
     cartTax,
-    cartTotal
+    cartTotal,
+    clearCart
   } = useGlobalContext();
   const history = useHistory();
 
@@ -21,6 +22,7 @@ export default function Checkout() {
     const data = { customer_id: currentUser.id, total: cartTotal };
     try {
       await createOrder(data);
+      await clearCart();
       history.push('/checkout/confirm');
     } catch (err) {
       const newError = err.message;
