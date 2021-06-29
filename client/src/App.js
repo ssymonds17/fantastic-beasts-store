@@ -11,6 +11,7 @@ import Default from './components/Default';
 import Modal from './components/Modal';
 import Register from './components/Register';
 import Login from './components/Login';
+import Checkout from './components/Checkout';
 
 function App() {
   const {
@@ -37,6 +38,7 @@ function App() {
         <Route path='/cart' component={Cart} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
+        <Route path='/checkout' component={Checkout} />
         <Route component={Default} />
       </Switch>
       <Modal />
