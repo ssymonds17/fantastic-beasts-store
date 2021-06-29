@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
-import { registerUser } from '../apis/auth';
+import { registerUser, getUserByEmail } from '../apis/auth';
+import { useGlobalContext } from '../context';
 import './styles/register.css';
 
 export default function Register() {
+  const { setUserInLocalStorage } = useGlobalContext();
+
   const [error, setError] = useState('');
   const history = useHistory();
 
@@ -15,10 +18,12 @@ export default function Register() {
       return null;
     }
 
-    const { credentials } = data;
     try {
-      await registerUser(credentials);
+      const { email } = data;
+      await registerUser(data);
       setError('');
+      const user = await getUserByEmail(email);
+      setUserInLocalStorage(user.id);
       history.push('/');
     } catch (err) {
       const newError = err.message;

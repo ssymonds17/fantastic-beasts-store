@@ -3,6 +3,8 @@ const router = express.Router();
 const createError = require('http-errors');
 const UserService = require('../services/userService');
 const UserServiceInstance = new UserService();
+const UserModel = require('../models/user');
+const UserModelInstance = new UserModel();
 
 module.exports = (app) => {
   app.use('/api/v1/users', router);
@@ -22,7 +24,7 @@ module.exports = (app) => {
   router.get('/check/:email', async (req, res, next) => {
     try {
       const { email } = req.params;
-      const response = await ModelUserInstance.findOneByEmail(email);
+      const response = await UserModelInstance.findOneByEmail(email);
 
       // If no user found then reject
       if (!response) {

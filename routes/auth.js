@@ -14,6 +14,7 @@ module.exports = (app, passport) => {
     try {
       const data = req.body;
       const response = await AuthServiceInstance.register(data);
+
       res.status(200).send(response);
     } catch (err) {
       next(err);
