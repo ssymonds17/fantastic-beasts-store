@@ -1,5 +1,6 @@
 .card {
   border-color: transparent;
+  height: 20rem;
   transition: all 0.8s linear;
 }
 .card-footer {
