@@ -69,19 +69,20 @@ export default function Login() {
           </Formik>
         </div>
       </div>
-      <div className='social-btn-container'>
-        {/* PRODUCTION */}
-        {/* <button>
+      <div className='text-center mt-3'>
+        <div className='social-btn-container'>
+          <h3>Login with Google</h3>
+          {/* PRODUCTION */}
+          {/* <button>
           <a href='https://fantastic-beasts-store.herokuapp.com/api/v1/auth/google'>
             Google
           </a>
         </button> */}
-        {/* DEVELOPMENT */}
-        <button>
-          <a href='http://localhost:8080/api/v1/auth/google'>Google</a>
-        </button>
-      </div>
-      <div className='text-center mt-3'>
+          {/* DEVELOPMENT */}
+          <button className='btn btn-danger google-btn'>
+            <a href='http://localhost:8080/api/v1/auth/google'>Google</a>
+          </button>
+        </div>
         <h3>Need to register?</h3>
         <Link to='/register'>
           <button className='btn btn-success'>Register</button>

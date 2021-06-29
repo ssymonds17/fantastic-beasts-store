@@ -15,3 +15,12 @@
   display: grid;
   row-gap: 10px;
 }
+
+.google-btn {
+  margin-bottom: 1rem;
+}
+
+.google-btn a {
+  color: white;
+  text-decoration: none;
+}
