@@ -1,9 +1,33 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../context';
+import { createOrder } from '../apis/order';
 import '../components/styles/checkout.css';
 
 export default function Checkout() {
-  const { cart, cartSubTotal, cartTax, cartTotal } = useGlobalContext();
+  const {
+    currentUser,
+    cart,
+    cartSubTotal,
+    cartTax,
+    cartTotal
+  } = useGlobalContext();
+  const history = useHistory();
+
+  const handleOrderConfirmation = async () => {
+    if (!currentUser || !cartTotal) {
+      return null;
+    }
+    const data = { customer_id: currentUser.id, total: cartTotal };
+    try {
+      await createOrder(data);
+      history.push('/checkout/confirm');
+    } catch (err) {
+      const newError = err.message;
+      throw new Error(newError);
+    }
+  };
+
   return (
     <div className='container checkout'>
       <header className='checkout-header'>
@@ -45,7 +69,12 @@ export default function Checkout() {
         </h5>
       </div>
       <div className='checkout-confirm-btn'>
-        <button className='btn btn-success checkout-btn'>Confirm</button>
+        <button
+          className='btn btn-success checkout-btn'
+          onClick={() => handleOrderConfirmation()}
+        >
+          Confirm
+        </button>
       </div>
     </div>
   );

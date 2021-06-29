@@ -52,12 +52,12 @@ module.exports = class OrderService {
       // Check to see if the order already exists
       const order = await OrderModelInstance.findOneById(count);
 
-      // If user already exists then reject
+      // If order already exists then reject
       if (order) {
         createError(409, 'Order already exists');
       }
 
-      // If user doesn't already exist then create new order record
+      // If order doesn't already exist then create new order record
       return await OrderModelInstance.create(data, count);
     } catch (err) {
       throw createError(500, err);
