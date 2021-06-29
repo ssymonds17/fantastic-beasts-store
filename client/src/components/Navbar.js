@@ -28,9 +28,11 @@ export default function Navbar({ user }) {
       {/* Conditionally display user account and logout buttons */}
       {user && (
         <>
-          <button className='button-container user-btn'>
-            {user.first_name}
-          </button>
+          <Link to={`/users/${user.id}`}>
+            <button className='button-container user-btn'>
+              {user.first_name}
+            </button>
+          </Link>
           <button
             className='button-container logout-btn'
             onClick={() => logout()}

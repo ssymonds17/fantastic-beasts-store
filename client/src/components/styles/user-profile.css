@@ -1,0 +1,21 @@
+.user-header {
+  text-transform: capitalize;
+  text-align: center;
+  padding: 3rem;
+}
+
+.user-header h1 {
+  font-size: 2.7rem;
+}
+
+.orders-table {
+  margin: auto;
+  width: 60vw;
+  text-align: center;
+}
+
+.orders-table th,
+td {
+  border: 1px solid black;
+  font-size: 1.2rem;
+}

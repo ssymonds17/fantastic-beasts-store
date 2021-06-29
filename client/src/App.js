@@ -13,6 +13,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Checkout from './components/Checkout';
 import CheckoutSuccess from './components/CheckoutSuccess';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const {
@@ -41,6 +42,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route exact path='/checkout' component={Checkout} />
         <Route exact path='/checkout/confirm' component={CheckoutSuccess} />
+        <Route path='/users/:userId' component={UserProfile} />
         <Route component={Default} />
       </Switch>
       <Modal />
