@@ -5,7 +5,7 @@ import '../components/styles/user-profile.css';
 
 export default function UserProfile() {
   const { currentUser } = useGlobalContext();
-  const [userOrders, setUserOrders] = useState(null);
+  const [userOrders, setUserOrders] = useState([]);
 
   const loadOrders = async (id) => {
     const newOrders = await fetchOrders(id);
@@ -13,10 +13,10 @@ export default function UserProfile() {
   };
 
   useEffect(() => {
-    if (!userOrders) {
+    if (currentUser) {
       loadOrders(currentUser.id);
     }
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className='container'>
@@ -28,8 +28,9 @@ export default function UserProfile() {
           </h1>
         )}
       </header>
-      {userOrders && (
-        <main>
+      {userOrders.length > 0 && (
+        <main className='user-orders-container'>
+          <h2>Your Previous Orders</h2>
           <table className='orders-table'>
             <thead>
               <tr>
@@ -52,6 +53,7 @@ export default function UserProfile() {
           </table>
         </main>
       )}
+      {userOrders.length === 0 && <h2>You have yet to make any orders</h2>}
     </div>
   );
 }

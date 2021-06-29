@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useGlobalContext } from './context';
@@ -14,6 +19,7 @@ import Login from './components/Login';
 import Checkout from './components/Checkout';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import UserProfile from './components/UserProfile';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const {
@@ -32,21 +38,23 @@ function App() {
   }, []);
 
   return (
-    <React.Fragment>
+    <Router>
       <Navbar user={currentUser} />
       <Switch>
+        {/* Public Routes */}
         <Route exact path='/' component={ProductList} />
         <Route path='/details' component={Details} />
-        <Route path='/cart' component={Cart} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
-        <Route exact path='/checkout' component={Checkout} />
-        <Route exact path='/checkout/confirm' component={CheckoutSuccess} />
-        <Route path='/users/:userId' component={UserProfile} />
-        <Route component={Default} />
+        <Route path='/cart' component={Cart} />
+        {/* Private Routes */}
+        <PrivateRoute exact path='/checkout' Component={Checkout} />
+        <Route exact path='/checkout/confirm' Component={CheckoutSuccess} />
+        <PrivateRoute exact path='/users/:userId' Component={UserProfile} />
+        <Redirect from='*' to='/' />
       </Switch>
       <Modal />
-    </React.Fragment>
+    </Router>
   );
 }
 
