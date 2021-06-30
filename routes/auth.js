@@ -51,26 +51,15 @@ module.exports = (app, passport) => {
   router.get(
     '/google/redirect',
     passport.authenticate('google', {
-      failureRedirect: 'http://localhost:3000/login'
+      failureRedirect: 'https://fantastic-beasts-store.herokuapp.com/login'
     }),
     async (req, res) => {
       req.session.user = req.user;
-      res.redirect('http://localhost:3000?id=' + req.user.id);
+      res.redirect(
+        'https://fantastic-beasts-store.herokuapp.com?id=' + req.user.id
+      );
     }
   );
-
-  // router.get('/google/redirect', function(req, res) {
-  //   passport.authenticate('google', function(err, user) {
-  //     if (err || !user) return res.redirect('http://localhost:3000/login');
-  //     else {
-  //       req.login(user, function(err) {
-  //         if (err) return next(err);
-  //         console.log('Request Login supossedly successful.');
-  //         return res.redirect('http://localhost:3000');
-  //       });
-  //     }
-  //   })(req, res);
-  // });
 
   router.get('/logged_in', async (req, res, next) => {
     try {
