@@ -25,7 +25,8 @@ function App() {
     currentUser,
     setUserInLocalStorage,
     checkIdInUrl,
-    checkLoggedIn
+    checkLoggedIn,
+    loggedIn
   } = useGlobalContext();
 
   useEffect(() => {
@@ -43,13 +44,28 @@ function App() {
         {/* Public Routes */}
         <Route exact path='/' component={ProductList} />
         <Route path='/details' component={Details} />
-        <Route path='/register' component={Register} />
-        <Route path='/login' component={Login} />
         <Route path='/cart' component={Cart} />
         {/* Private Routes */}
-        <PrivateRoute exact path='/checkout' Component={Checkout} />
-        <Route exact path='/checkout/confirm' Component={CheckoutSuccess} />
-        <PrivateRoute exact path='/users/:userId' Component={UserProfile} />
+        <PrivateRoute path='/register' Component={Register} loginBool={false} />
+        <PrivateRoute path='/login' Component={Login} loginBool={false} />
+        <PrivateRoute
+          exact
+          path='/checkout'
+          Component={Checkout}
+          loginBool={true}
+        />
+        <PrivateRoute
+          exact
+          path='/checkout/confirm'
+          Component={CheckoutSuccess}
+          loginBool={true}
+        />
+        <PrivateRoute
+          exact
+          path='/users/:userId'
+          Component={UserProfile}
+          loginBool={true}
+        />
         <Redirect from='*' to='/' />
       </Switch>
       <Modal />

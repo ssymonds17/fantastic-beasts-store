@@ -20,6 +20,7 @@ const ProductProvider = ({ children }) => {
   const [cartTax, setCartTax] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [currentUser, setCurrentUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Functions ------------------------>
   const loadProducts = async () => {
@@ -158,8 +159,10 @@ const ProductProvider = ({ children }) => {
     const response = await isLoggedIn(id);
     if (response) {
       setCurrentUser(response);
+      setLoggedIn(true);
     } else {
       setCurrentUser(null);
+      setLoggedIn(false);
     }
   };
 
@@ -187,7 +190,8 @@ const ProductProvider = ({ children }) => {
         setCurrentUser,
         setUserInLocalStorage,
         checkIdInUrl,
-        checkLoggedIn
+        checkLoggedIn,
+        loggedIn
       }}
     >
       {children}
