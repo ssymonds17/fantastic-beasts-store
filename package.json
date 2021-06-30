@@ -10,7 +10,7 @@
   "scripts": {
     "devStart": "nodemon app.js",
     "start": "node app.js",
-    "build": "cd frontend && npm install && npm run build"
+    "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.21.1",
