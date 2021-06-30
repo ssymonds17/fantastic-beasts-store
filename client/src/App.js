@@ -25,8 +25,7 @@ function App() {
     currentUser,
     setUserInLocalStorage,
     checkIdInUrl,
-    checkLoggedIn,
-    loggedIn
+    checkLoggedIn
   } = useGlobalContext();
 
   useEffect(() => {
