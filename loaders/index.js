@@ -1,6 +1,3 @@
-const path = require('path');
-const express = require('express');
-
 const expressLoader = require('./express');
 const passportLoader = require('./passport');
 const routeLoader = require('../routes');
