@@ -9,8 +9,7 @@
   "private": true,
   "scripts": {
     "devStart": "nodemon app.js",
-    "start": "node app.js",
-    "build": "cd client && npm install && npm run build"
+    "start": "node app.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
