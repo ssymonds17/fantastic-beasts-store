@@ -51,12 +51,12 @@ module.exports = (app, passport) => {
   router.get(
     '/google/redirect',
     passport.authenticate('google', {
-      failureRedirect: 'https://fantastic-beasts-store.herokuapp.com/login'
+      failureRedirect: 'https://fantastic-beasts-client.herokuapp.com/login'
     }),
     async (req, res) => {
       req.session.user = req.user;
       res.redirect(
-        'https://fantastic-beasts-store.herokuapp.com?id=' + req.user.id
+        'https://fantastic-beasts-client.herokuapp.com?id=' + req.user.id
       );
     }
   );
