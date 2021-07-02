@@ -61,9 +61,9 @@ module.exports = (app, passport) => {
     }
   );
 
-  router.get('/logged_in', async (req, res, next) => {
+  router.get('/logged_in/:id', async (req, res, next) => {
     try {
-      const id = req._parsedOriginalUrl.query.slice(3);
+      const id = req.params.id;
       const user = await UserServiceInstance.getOne({ id });
       res.status(200).send(user);
     } catch (err) {
